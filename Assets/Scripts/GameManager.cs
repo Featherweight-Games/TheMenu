@@ -1,17 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : Singleton<GameManager> {
+
+    enum GameState {
+        startScreen,
+        gameScreen
+    };
     
+    
+    [Header("Start Screen")]
+    public GameObject startScreen;
+    public TMP_Text highScoreText;
+    
+    [Header("Game Screen")]
+    public GameObject gameScreen;
+    public TMP_Text scoreText;
+    public TMP_Text timerText;
+    
+    
+
+    private float timer;
     private int currentScore;
+
+    private const float GAME_DURATION = 30f;
+
+    private GameState gameState;
+
+    public bool DoublePoints { get; private set; } = false;
+    public float CooldownScale { get; private set; } = 1f;
     
-    public bool DoublePoints { get; private set; }
-    public float CooldownScale { get; private set; }
+
+    public void Start() {
+        ShowStartScreen();
+    }
+
+    public void Update() {
+        if (timer > 0) {
+            timerText.text = timer.ToString("F2") + "s";
+            timer -= Time.deltaTime;
+        } else {
+            if (gameState == GameState.gameScreen) {
+                ShowStartScreen();
+            }
+        }
+    }
+
+    void ShowGameScreen() {
+        startScreen.SetActive(false);
+        gameScreen.SetActive(true);
+        timer = GAME_DURATION;
+        timerText.text = timer.ToString("F2");
+        currentScore = 0;
+        scoreText.text = currentScore.ToString();
+
+        gameState = GameState.gameScreen;
+    }
+
+    void ShowStartScreen() {
+        startScreen.SetActive(true);
+        gameScreen.SetActive(false);
+
+        if (currentScore > PlayerPrefs.GetInt("highScore", 0)) {
+            PlayerPrefs.SetInt("highScore", currentScore);
+        }
+
+        highScoreText.text = PlayerPrefs.GetInt("highScore", 0).ToString();
+        
+        gameState = GameState.startScreen;
+    }
     
     public void AddScore(int score) {
         currentScore += score;
-        UIManager.Instance.scoreText.text = currentScore.ToString();
+        scoreText.text = currentScore.ToString();
     }
 
     public void EnableDoublePoints() {
@@ -32,6 +95,12 @@ public class GameManager : Singleton<GameManager> {
     public void DisableHaste() {
         Debug.Log("HASTE - OFF");
         CooldownScale = 1f;
+    }
+    
+    
+    //UI CALLBACKS
+    public void UIResponse_StartGame() {
+        ShowGameScreen();
     }
     
 }

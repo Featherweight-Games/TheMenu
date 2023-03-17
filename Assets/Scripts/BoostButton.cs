@@ -14,10 +14,8 @@ public class BoostButton : MonoBehaviour {
     private float cooldownTimer;
     private float durationTimer;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void OnEnable() {
+        cooldownTimer = 0;
     }
 
     // Update is called once per frame

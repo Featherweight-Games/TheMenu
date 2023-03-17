@@ -13,11 +13,14 @@ public class ScoreButton : MonoBehaviour {
     private float cooldownTimer;
     
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         scoreText.text = "+" + score;
     }
-    
+
+    private void OnEnable() {
+        cooldownTimer = 0;
+    }
+
     void Update() {
         cooldownTimer -= Time.deltaTime * GameManager.Instance.CooldownScale;
     }
