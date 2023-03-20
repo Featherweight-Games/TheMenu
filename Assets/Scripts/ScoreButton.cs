@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ScoreButton : MonoBehaviour {
+public class ScoreButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler  {
     
     public float cooldown;
     public int score;
     public TMP_Text scoreText;
 
     private float cooldownTimer;
-    
+    private ButtonStyle buttonStyle;
+
     // Start is called before the first frame update
     void Start() {
         scoreText.text = "+" + score;
+        buttonStyle = GetComponent<ButtonStyle>();
     }
 
     private void OnEnable() {
@@ -23,6 +27,8 @@ public class ScoreButton : MonoBehaviour {
 
     void Update() {
         cooldownTimer -= Time.deltaTime * GameManager.Instance.CooldownScale;
+        buttonStyle.SetActive(cooldownTimer <= 0);
+        buttonStyle.SetFill(Mathf.Clamp01(1f - cooldownTimer / cooldown));
     }
 
     public void UIResponse_Clicked() {
@@ -32,8 +38,19 @@ public class ScoreButton : MonoBehaviour {
                 toAdd *= 2;
             }
             GameManager.Instance.AddScore(toAdd);
-            
+            buttonStyle.Burst(Color.white);
             cooldownTimer = cooldown;
         }
+    }
+    
+    public void OnPointerDown(PointerEventData eventData) {
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData) {
+        if (cooldownTimer > 0) {
+            return;
+        }
+        buttonStyle.OnClicked();
     }
 }

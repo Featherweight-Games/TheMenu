@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18018606, g: 0.22559257, b: 0.30678663, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -783,6 +783,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8610275675588922239, guid: a482423352cc44be28fe65f1878a7f9b, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a482423352cc44be28fe65f1878a7f9b, type: 3}
 --- !u!224 &868185477 stripped
@@ -1187,8 +1191,8 @@ Canvas:
   m_GameObject: {fileID: 1162004246}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1255,9 +1259,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -217.00006, y: -124}
+  m_AnchoredPosition: {x: -56.35022, y: -124}
   m_SizeDelta: {x: 321.3, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1272444076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1740,6 +1744,40 @@ MonoBehaviour:
   gameScreen: {fileID: 279059036}
   scoreText: {fileID: 1272444076}
   timerText: {fileID: 622594182}
+  scoreRT: {fileID: 1272444075}
+  buttonPressCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.008087158
+      inSlope: 5.1572747
+      outSlope: 5.1572747
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.12147985
+    - serializedVersion: 3
+      time: 0.56918335
+      value: 1.5636472
+      inSlope: 0.0034603407
+      outSlope: 0.0034603407
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.28484425
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.2748855
+      outSlope: 1.2748855
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.65319103
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1911582234
 Transform:
   m_ObjectHideFlags: 0

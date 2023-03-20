@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -19,8 +20,12 @@ public class GameManager : Singleton<GameManager> {
     public GameObject gameScreen;
     public TMP_Text scoreText;
     public TMP_Text timerText;
-    
-    
+
+    [Header("Animation Components")]
+    public RectTransform scoreRT;
+
+    [Header("Animation Curves")]
+    public AnimationCurve buttonPressCurve;
 
     private float timer;
     private int currentScore;
@@ -75,6 +80,9 @@ public class GameManager : Singleton<GameManager> {
     public void AddScore(int score) {
         currentScore += score;
         scoreText.text = currentScore.ToString();
+
+        scoreRT.DOComplete();
+        scoreRT.DOPunchScale(Vector3.one * 1.1f, 0.15f, 2, 1f).SetEase(Ease.InBack);
     }
 
     public void EnableDoublePoints() {
