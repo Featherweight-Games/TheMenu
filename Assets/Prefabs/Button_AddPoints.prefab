@@ -229,6 +229,7 @@ MonoBehaviour:
   cooldown: 0
   score: 1
   scoreText: {fileID: 6321231653277113553}
+  textPingPrefab: {fileID: 5290995363295105550, guid: ea08da80c98324f71871f70e8c8fcaa0, type: 3}
 --- !u!114 &5908371970506708747
 MonoBehaviour:
   m_ObjectHideFlags: 0

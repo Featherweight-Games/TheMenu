@@ -44,11 +44,9 @@ public class ButtonStyle : MonoBehaviour
             buttonFill.color = new Color(buttonFill.color.r, buttonFill.color.g, buttonFill.color.b, 0.25f);
             text.color = Color.white;
         }
-        
-
 
         if (active == true && isActive == false) {
-            Burst(Color.green);
+            Burst(Color.white);
         }
         isActive = active;
     }

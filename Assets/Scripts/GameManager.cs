@@ -23,6 +23,8 @@ public class GameManager : Singleton<GameManager> {
 
     [Header("Animation Components")]
     public RectTransform scoreRT;
+    public CanvasGroup startScreenCG;
+    public CanvasGroup gameScreenCG;
 
     [Header("Animation Curves")]
     public AnimationCurve buttonPressCurve;
@@ -62,6 +64,11 @@ public class GameManager : Singleton<GameManager> {
         scoreText.text = currentScore.ToString();
 
         gameState = GameState.gameScreen;
+        
+        gameScreenCG.DOComplete();
+        gameScreenCG.DOFade(0f, 0.4f).From();
+        gameScreenCG.transform.DOComplete();
+        gameScreenCG.transform.DOScale(0.8f, 0.2f).From().SetEase(Ease.OutQuad);
     }
 
     void ShowStartScreen() {
@@ -75,14 +82,21 @@ public class GameManager : Singleton<GameManager> {
         highScoreText.text = PlayerPrefs.GetInt("highScore", 0).ToString();
         
         gameState = GameState.startScreen;
+
+        startScreenCG.DOComplete();
+        startScreenCG.DOFade(0f, 0.4f).From();
+        gameScreenCG.transform.DOComplete();
+        gameScreenCG.transform.DOScale(0.8f, 0.2f).From().SetEase(Ease.OutQuad);
     }
     
     public void AddScore(int score) {
         currentScore += score;
         scoreText.text = currentScore.ToString();
 
+        scoreText.DOComplete();
+        scoreText.DOColor(Color.cyan, 0.15f).From();
         scoreRT.DOComplete();
-        scoreRT.DOPunchScale(Vector3.one * 1.1f, 0.15f, 2, 1f).SetEase(Ease.InBack);
+        scoreRT.DOPunchScale(Vector3.one * 1.01f, 0.15f, 2, 1f).SetEase(Ease.InBack);
     }
 
     public void EnableDoublePoints() {

@@ -15,6 +15,8 @@ public class ScoreButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private float cooldownTimer;
     private ButtonStyle buttonStyle;
 
+    public TextPing textPingPrefab;
+
     // Start is called before the first frame update
     void Start() {
         scoreText.text = "+" + score;
@@ -40,7 +42,12 @@ public class ScoreButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             GameManager.Instance.AddScore(toAdd);
             buttonStyle.Burst(Color.white);
             cooldownTimer = cooldown;
+            
+            TextPing textPing = GameObject.Instantiate(textPingPrefab, transform.position, Quaternion.identity, transform);
+            textPing.SetText($"+{score}");
         }
+
+
     }
     
     public void OnPointerDown(PointerEventData eventData) {

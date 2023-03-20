@@ -267,6 +267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 279059037}
+  - component: {fileID: 279059038}
   m_Layer: 5
   m_Name: GameScreen
   m_TagString: Untagged
@@ -302,6 +303,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &279059038
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279059036}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &452663016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -650,6 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 747338292}
+  - component: {fileID: 747338293}
   m_Layer: 5
   m_Name: StartScreen
   m_TagString: Untagged
@@ -680,6 +694,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &747338293
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747338291}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &868185476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1745,6 +1771,8 @@ MonoBehaviour:
   scoreText: {fileID: 1272444076}
   timerText: {fileID: 622594182}
   scoreRT: {fileID: 1272444075}
+  startScreenCG: {fileID: 747338293}
+  gameScreenCG: {fileID: 279059038}
   buttonPressCurve:
     serializedVersion: 2
     m_Curve:
