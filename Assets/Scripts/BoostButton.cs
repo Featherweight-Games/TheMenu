@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(CanvasGroup))]
 public class BoostButton : MonoBehaviour {
 
     public enum BoostType {doublePoints, haste}
@@ -13,6 +13,15 @@ public class BoostButton : MonoBehaviour {
 
     private float cooldownTimer;
     private float durationTimer;
+
+    public Color durationBegin;
+    public Color durationEnd;
+
+    public System.Action OnUsed;
+    public System.Action OnRestored;
+
+    public CanvasGroup cg;
+    public AnimationCurve animFade;
     
     private void OnEnable() {
         cooldownTimer = 0;
@@ -40,6 +49,10 @@ public class BoostButton : MonoBehaviour {
             } else if (boostType == BoostType.haste) {
                 GameManager.Instance.EnableHaste();
             }
+
+            if(OnUsed != null) {
+                OnUsed.Invoke();
+            }
         }
     }
 
@@ -49,7 +62,21 @@ public class BoostButton : MonoBehaviour {
         } else if (boostType == BoostType.haste) {
             GameManager.Instance.DisableHaste();
         }
+
+        if(OnRestored != null) {
+            OnRestored.Invoke();
+        }
     }
     
-    
+    public void Hide() {
+        StartCoroutine(UIAnim.Lerp(0.1f, animFade, (dt) => {
+            cg.alpha = 1.0f - dt;
+        }));
+    }
+
+    public void Show() {
+        StartCoroutine(UIAnim.Lerp(0.1f, animFade, (dt) => {
+            cg.alpha = dt;
+        }));
+    }
 }

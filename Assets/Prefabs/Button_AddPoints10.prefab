@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6321231653237940504}
   - component: {fileID: 5528524539301355823}
   m_Layer: 5
-  m_Name: Button_AddPoints
+  m_Name: Button_AddPoints10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -250, y: 0}
-  m_SizeDelta: {x: 160, y: 60}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6321231653237940511
 CanvasRenderer:
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182723ca47f2f4c9aaba25ca3231a696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
-  score: 1
+  cooldown: 5
+  score: 10
   scoreText: {fileID: 6321231653277113553}
   animFade:
     serializedVersion: 2
@@ -224,7 +224,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -16, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6321231653277113554
 CanvasRenderer:
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +1
+  m_text: +99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d09fb4da6079a44c4b463f3e6eb220c0, type: 2}
   m_sharedMaterial: {fileID: -2778579805264189589, guid: d09fb4da6079a44c4b463f3e6eb220c0, type: 2}

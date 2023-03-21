@@ -7,7 +7,8 @@ public class GameManager : Singleton<GameManager> {
 
     enum GameState {
         startScreen,
-        gameScreen
+        gameScreen,
+        transition,
     };
     
     
@@ -16,7 +17,7 @@ public class GameManager : Singleton<GameManager> {
     public TMP_Text highScoreText;
     
     [Header("Game Screen")]
-    public GameObject gameScreen;
+    public UIGameScreen gameScreen;
     public TMP_Text scoreText;
     public TMP_Text timerText;
     
@@ -31,37 +32,47 @@ public class GameManager : Singleton<GameManager> {
 
     public bool DoublePoints { get; private set; } = false;
     public float CooldownScale { get; private set; } = 1f;
-    
+
+    public System.Action<int, int> OnAddScore;
+
 
     public void Start() {
         ShowStartScreen();
     }
 
     public void Update() {
-        if (timer > 0) {
-            timerText.text = timer.ToString("F2") + "s";
-            timer -= Time.deltaTime;
-        } else {
-            if (gameState == GameState.gameScreen) {
-                ShowStartScreen();
+        switch(gameState) {
+            case GameState.gameScreen: {
+                timerText.text = $"{(int)timer}s";
+                timer -= Time.deltaTime;
+                if(timer <= 0.0f) {
+                    ShowStartScreen();
+                }
+                break;
             }
         }
     }
 
     void ShowGameScreen() {
         startScreen.SetActive(false);
-        gameScreen.SetActive(true);
+        gameScreen.gameObject.SetActive(true);
         timer = GAME_DURATION;
-        timerText.text = timer.ToString("F2");
+        timerText.text = $"{(int)timer}s";
         currentScore = 0;
         scoreText.text = currentScore.ToString();
 
+        gameState = GameState.transition;
+
+        StartCoroutine(gameScreen.Warmup());
+    }
+
+    public void OnGameStart() {
         gameState = GameState.gameScreen;
     }
 
     void ShowStartScreen() {
         startScreen.SetActive(true);
-        gameScreen.SetActive(false);
+        gameScreen.gameObject.SetActive(false);
 
         if (currentScore > PlayerPrefs.GetInt("highScore", 0)) {
             PlayerPrefs.SetInt("highScore", currentScore);
@@ -75,6 +86,10 @@ public class GameManager : Singleton<GameManager> {
     public void AddScore(int score) {
         currentScore += score;
         scoreText.text = currentScore.ToString();
+
+        if(OnAddScore != null) {
+            OnAddScore.Invoke(score, currentScore);
+        }
     }
 
     public void EnableDoublePoints() {
