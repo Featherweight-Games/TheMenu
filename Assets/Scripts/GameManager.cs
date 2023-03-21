@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
+using EMCTools;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -19,8 +21,9 @@ public class GameManager : Singleton<GameManager> {
     public GameObject gameScreen;
     public TMP_Text scoreText;
     public TMP_Text timerText;
-    
-    
+
+	Tween scoreScaleTween;
+	UIAnimator timerAnimator;
 
     private float timer;
     private int currentScore;
@@ -35,12 +38,18 @@ public class GameManager : Singleton<GameManager> {
 
     public void Start() {
         ShowStartScreen();
-    }
+		timerAnimator = timerText.GetComponent<UIAnimator>();
+	}
 
     public void Update() {
         if (timer > 0) {
             timerText.text = timer.ToString("F2") + "s";
             timer -= Time.deltaTime;
+
+			if(timer <= 10 && !timerAnimator.enabled) {
+				timerAnimator.enabled = true;
+				timerText.color = Color.red;
+			}
         } else {
             if (gameState == GameState.gameScreen) {
                 ShowStartScreen();
@@ -57,9 +66,14 @@ public class GameManager : Singleton<GameManager> {
         scoreText.text = currentScore.ToString();
 
         gameState = GameState.gameScreen;
-    }
 
-    void ShowStartScreen() {
+		if(timerAnimator == null)
+			return;
+		timerAnimator.enabled = false;
+		timerText.color = Color.white;
+	}
+
+	void ShowStartScreen() {
         startScreen.SetActive(true);
         gameScreen.SetActive(false);
 
@@ -70,14 +84,33 @@ public class GameManager : Singleton<GameManager> {
         highScoreText.text = PlayerPrefs.GetInt("highScore", 0).ToString();
         
         gameState = GameState.startScreen;
-    }
-    
-    public void AddScore(int score) {
-        currentScore += score;
-        scoreText.text = currentScore.ToString();
-    }
 
-    public void EnableDoublePoints() {
+		if(timerAnimator == null)
+			return;
+		timerAnimator.enabled = false;
+		timerText.color = Color.white;
+	}
+
+	public void AddScore(int score) {
+        currentScore += score;
+		StartCoroutine(UpdateScoreDelayed(currentScore.ToString()));
+	}
+
+	IEnumerator UpdateScoreDelayed(string newText) {
+		yield return new WaitForSeconds(0.5f);
+		scoreText.text = newText;
+		RectTransform scoreTransform = scoreText.transform as RectTransform;
+
+		if(scoreScaleTween != null && scoreScaleTween.active) {
+			scoreScaleTween.Complete();
+			scoreScaleTween.Kill();
+		}
+		scoreScaleTween = DOTween.To(() => scoreTransform.localScale, x => scoreTransform.localScale = x, new Vector3(1.25f, 1.25f, 1.25f), 0.1f).SetEase(Ease.OutQuad).OnComplete(() => {
+			scoreScaleTween = DOTween.To(() => scoreTransform.localScale, x => scoreTransform.localScale = x, new Vector3(1, 1, 1), 0.1f).SetEase(Ease.OutQuad);
+		});
+	}
+
+	public void EnableDoublePoints() {
         Debug.Log("Double Points - ON");
         DoublePoints = true;
     }

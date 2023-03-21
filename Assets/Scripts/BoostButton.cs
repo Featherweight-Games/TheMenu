@@ -13,13 +13,17 @@ public class BoostButton : MonoBehaviour {
 
     private float cooldownTimer;
     private float durationTimer;
-    
-    private void OnEnable() {
-        cooldownTimer = 0;
-    }
 
-    // Update is called once per frame
-    void Update() {
+	UIButtonFeedbacks buttonFeedbacks;
+	bool isCoolingDown;
+
+	private void OnEnable() {
+        cooldownTimer = 0;
+		buttonFeedbacks = GetComponent<UIButtonFeedbacks>();
+	}
+
+	// Update is called once per frame
+	void Update() {
         //count down duration, then countdown cooldown
         if (durationTimer > 0) {
             durationTimer -= Time.deltaTime;
@@ -29,11 +33,21 @@ public class BoostButton : MonoBehaviour {
         } else {
             cooldownTimer -= Time.deltaTime * GameManager.Instance.CooldownScale;
         }
-    }
 
-    public void UIResponse_Clicked() {
+		if(cooldownTimer <= 0 && isCoolingDown)
+			buttonFeedbacks.OnCooldownEnd();
+
+		if(isCoolingDown) {
+			buttonFeedbacks.UpdateCooldownSlider(Mathf.Clamp(cooldownTimer / cooldown, 0, 1));
+		}
+
+	}
+
+	public void UIResponse_Clicked() {
         if (cooldownTimer <= 0) {
-            cooldownTimer = cooldown;
+			isCoolingDown = cooldown > 0;
+			buttonFeedbacks.OnPressed(isCoolingDown);
+			cooldownTimer = cooldown;
             durationTimer = duration;
             if (boostType == BoostType.doublePoints) {
                 GameManager.Instance.EnableDoublePoints();
