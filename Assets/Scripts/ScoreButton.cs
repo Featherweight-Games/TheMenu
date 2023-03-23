@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreButton : MonoBehaviour {
     
@@ -15,6 +16,8 @@ public class ScoreButton : MonoBehaviour {
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+
+    [SerializeField] Image cooldownFill;
 
     private bool CooldownExpired => cooldownTimer <= 0;
 
@@ -33,6 +36,8 @@ public class ScoreButton : MonoBehaviour {
         cooldownTimer -= Time.deltaTime * GameManager.Instance.CooldownScale;
 
         canvasGroup.alpha = CooldownExpired ? 1 : 0.5f;
+
+        cooldownFill.fillAmount = cooldownTimer / cooldown;
     }
 
     public void UIResponse_Clicked() {
