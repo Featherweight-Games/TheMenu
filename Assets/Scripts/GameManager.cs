@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -19,11 +20,13 @@ public class GameManager : Singleton<GameManager> {
     public GameObject gameScreen;
     public TMP_Text scoreText;
     public TMP_Text timerText;
+    [SerializeField] TextMeshProUGUI scoreIncrement;
     
     
 
     private float timer;
     private int currentScore;
+    private int currentlyDisplayedScore;
 
     private const float GAME_DURATION = 30f;
 
@@ -31,7 +34,9 @@ public class GameManager : Singleton<GameManager> {
 
     public bool DoublePoints { get; private set; } = false;
     public float CooldownScale { get; private set; } = 1f;
-    
+
+
+    private Tween scoreIncrementAnimation;
 
     public void Start() {
         ShowStartScreen();
@@ -39,7 +44,7 @@ public class GameManager : Singleton<GameManager> {
 
     public void Update() {
         if (timer > 0) {
-            timerText.text = timer.ToString("F2") + "s";
+            timerText.text =  "<mspace=0.6em>" + timer.ToString("F2") + "s";
             timer -= Time.deltaTime;
         } else {
             if (gameState == GameState.gameScreen) {
@@ -54,6 +59,7 @@ public class GameManager : Singleton<GameManager> {
         timer = GAME_DURATION;
         timerText.text = timer.ToString("F2");
         currentScore = 0;
+        currentlyDisplayedScore = 0;
         scoreText.text = currentScore.ToString();
 
         gameState = GameState.gameScreen;
@@ -73,8 +79,23 @@ public class GameManager : Singleton<GameManager> {
     }
     
     public void AddScore(int score) {
+
+        int oldScore = currentScore;
         currentScore += score;
-        scoreText.text = currentScore.ToString();
+
+        if (scoreIncrementAnimation != null && scoreIncrementAnimation.IsActive())
+        {
+            scoreIncrementAnimation.Kill();
+        }
+
+        scoreText.DOKill();
+        scoreText.GetComponent<RectTransform>().DOPunchScale(Vector3.one * score / 30f, 0.15f);
+
+        scoreIncrementAnimation = DOVirtual.Int(oldScore, currentScore, 0.3f, (point) =>
+        {
+            currentlyDisplayedScore++;
+            scoreText.text = point.ToString();
+        });
     }
 
     public void EnableDoublePoints() {
