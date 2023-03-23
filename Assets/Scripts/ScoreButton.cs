@@ -1,7 +1,4 @@
 using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +15,7 @@ public class ScoreButton : MonoBehaviour {
     private CanvasGroup canvasGroup;
 
     [SerializeField] Image cooldownFill;
-
+    
     private bool CooldownExpired => cooldownTimer <= 0;
 
     // Start is called before the first frame update
@@ -43,8 +40,7 @@ public class ScoreButton : MonoBehaviour {
     public void UIResponse_Clicked() {
         if (cooldownTimer <= 0) {
 
-            rectTransform.DOPunchScale(Vector3.one * 0.1f, 0.15f);
-
+            rectTransform.DOPunchScale(Vector3.one * 0.15f, 0.2f, 5, 5);
 
             int toAdd = score;
             if (GameManager.Instance.DoublePoints) {
@@ -53,10 +49,6 @@ public class ScoreButton : MonoBehaviour {
             GameManager.Instance.AddScore(toAdd);
             
             cooldownTimer = cooldown;
-        }
-        else
-        {
-
         }
     }
 }
