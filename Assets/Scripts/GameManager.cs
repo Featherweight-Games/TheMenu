@@ -20,13 +20,9 @@ public class GameManager : Singleton<GameManager> {
     public GameObject gameScreen;
     public TMP_Text scoreText;
     public TMP_Text timerText;
-    [SerializeField] TextMeshProUGUI scoreIncrement;
-    
-    
 
     private float timer;
     private int currentScore;
-    private int currentlyDisplayedScore;
 
     private const float GAME_DURATION = 30f;
 
@@ -44,8 +40,16 @@ public class GameManager : Singleton<GameManager> {
 
     public void Update() {
         if (timer > 0) {
+            
+            if (timer < 10)
+            {
+                timerText.color =  (int) timer % 2 == 0 ? Color.red : Color.white;
+            }
+            
             timerText.text =  "<mspace=0.6em>" + timer.ToString("F2") + "s";
             timer -= Time.deltaTime;
+
+
         } else {
             if (gameState == GameState.gameScreen) {
                 ShowStartScreen();
@@ -57,9 +61,9 @@ public class GameManager : Singleton<GameManager> {
         startScreen.SetActive(false);
         gameScreen.SetActive(true);
         timer = GAME_DURATION;
+        timerText.color = Color.white;
         timerText.text = timer.ToString("F2");
         currentScore = 0;
-        currentlyDisplayedScore = 0;
         scoreText.text = currentScore.ToString();
 
         gameState = GameState.gameScreen;
@@ -93,7 +97,6 @@ public class GameManager : Singleton<GameManager> {
 
         scoreIncrementAnimation = DOVirtual.Int(oldScore, currentScore, 0.3f, (point) =>
         {
-            currentlyDisplayedScore++;
             scoreText.text = point.ToString();
         });
     }
