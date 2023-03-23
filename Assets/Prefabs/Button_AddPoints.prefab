@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6321231653237940510}
   - component: {fileID: 6321231653237940509}
   - component: {fileID: 6321231653237940504}
+  - component: {fileID: 8618001241314891713}
   m_Layer: 5
   m_Name: Button_AddPoints
   m_TagString: Untagged
@@ -98,7 +99,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -150,6 +151,18 @@ MonoBehaviour:
   cooldown: 0
   score: 1
   scoreText: {fileID: 6321231653277113553}
+--- !u!225 &8618001241314891713
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321231653237940499}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6321231653277113559
 GameObject:
   m_ObjectHideFlags: 0
