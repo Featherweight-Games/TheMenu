@@ -38,7 +38,6 @@ public class GameManager : Singleton<GameManager> {
 
     public void Update() {
         if (timer > 0) {
-
             timerText.color = timer <= LOW_TIME_LEFT ? Color.red : Color.white;
             timerText.text = timer.ToString("F1") + "s";
             timer -= Time.deltaTime;
@@ -77,6 +76,7 @@ public class GameManager : Singleton<GameManager> {
     {
         currentScore += score;
         scoreText.text = currentScore.ToString();
+        scoreText.GetComponent<Animator>().SetTrigger("AddScore");
     }
 
     public void EnableDoublePoints() {
