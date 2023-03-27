@@ -150,6 +150,9 @@ MonoBehaviour:
   cooldown: 0
   score: 1
   scoreText: {fileID: 6321231653277113553}
+  ButtonRef: {fileID: 6321231653237940509}
+  DisabledColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  EnabledColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6321231653277113559
 GameObject:
   m_ObjectHideFlags: 0

@@ -150,6 +150,10 @@ MonoBehaviour:
   boostType: 0
   duration: 5
   cooldown: 10
+  ButtonRef: {fileID: 5324879288276751637}
+  ActiveColor: {r: 0.14285517, g: 1, b: 0, a: 1}
+  DisabledColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  ReadyToUseColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5324879288370489567
 GameObject:
   m_ObjectHideFlags: 0
