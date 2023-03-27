@@ -19,12 +19,11 @@ public class GameManager : Singleton<GameManager> {
     public GameObject gameScreen;
     public TMP_Text scoreText;
     public TMP_Text timerText;
-    
-    
 
     private float timer;
     private int currentScore;
-
+    
+    private const float LOW_TIME_LEFT = 3f;
     private const float GAME_DURATION = 30f;
 
     private GameState gameState;
@@ -39,7 +38,9 @@ public class GameManager : Singleton<GameManager> {
 
     public void Update() {
         if (timer > 0) {
-            timerText.text = timer.ToString("F2") + "s";
+
+            timerText.color = timer <= LOW_TIME_LEFT ? Color.red : Color.white;
+            timerText.text = timer.ToString("F1") + "s";
             timer -= Time.deltaTime;
         } else {
             if (gameState == GameState.gameScreen) {
@@ -52,7 +53,7 @@ public class GameManager : Singleton<GameManager> {
         startScreen.SetActive(false);
         gameScreen.SetActive(true);
         timer = GAME_DURATION;
-        timerText.text = timer.ToString("F2");
+        timerText.text = timer.ToString("F1");
         currentScore = 0;
         scoreText.text = currentScore.ToString();
 
@@ -72,7 +73,8 @@ public class GameManager : Singleton<GameManager> {
         gameState = GameState.startScreen;
     }
     
-    public void AddScore(int score) {
+    public void AddScore(int score) 
+    {
         currentScore += score;
         scoreText.text = currentScore.ToString();
     }
