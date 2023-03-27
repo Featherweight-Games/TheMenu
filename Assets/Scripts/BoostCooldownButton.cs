@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BoostCooldownButton : CooldownButton {
-
+public class BoostCooldownButton : CooldownButton 
+{
     public enum BoostType {doublePoints, haste}
     
     [SerializeField] private Color durationColor = Color.green;
@@ -16,7 +16,7 @@ public class BoostCooldownButton : CooldownButton {
 
     protected override void Update()
     {
-        //count down duration, then countdown cooldown
+        // Count down duration, then countdown cooldown
         if (durationTimer > 0) 
         {
             durationTimer -= Time.deltaTime;
@@ -28,7 +28,9 @@ public class BoostCooldownButton : CooldownButton {
             {
                 EndDuration();
             }
-        } else {
+        } 
+        else 
+        {
             base.Update();
         }
     }
@@ -56,7 +58,8 @@ public class BoostCooldownButton : CooldownButton {
         }
     }
 
-    private void EndDuration() {
+    private void EndDuration() 
+    {
         if (boostType == BoostType.doublePoints) 
         {
             GameManager.Instance.DisableDoublePoints();
