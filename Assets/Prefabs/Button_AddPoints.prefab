@@ -226,10 +226,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationIndicator: {fileID: 385267851640511844}
-  cooldownColor: {r: 1, g: 0, b: 0, a: 1}
+  cooldownColor: {r: 0.754717, g: 0.16019939, b: 0.16019939, a: 0.8627451}
   cooldown: 0
   score: 1
   scoreText: {fileID: 6321231653277113553}
+  doublePointsTextColour: {r: 0.8962264, g: 0.6869265, b: 0.08877714, a: 1}
 --- !u!114 &2397463473432954640
 MonoBehaviour:
   m_ObjectHideFlags: 0

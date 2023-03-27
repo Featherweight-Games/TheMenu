@@ -1886,6 +1886,38 @@ PrefabInstance:
       propertyPath: cooldown
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: cooldownColor.a
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: cooldownColor.b
+      value: 0.16078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: cooldownColor.g
+      value: 0.16078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: cooldownColor.r
+      value: 0.7529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: durationColor.a
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: durationColor.b
+      value: 0.28368637
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: durationColor.g
+      value: 0.8018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324879288276751634, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
+      propertyPath: durationColor.r
+      value: 0.28368637
+      objectReference: {fileID: 0}
     - target: {fileID: 5324879288276751636, guid: e1891bd46cf3248b08854bb1bcde97b2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

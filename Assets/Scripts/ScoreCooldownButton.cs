@@ -1,11 +1,20 @@
 using TMPro;
+using UnityEngine;
 
 public class ScoreCooldownButton : CooldownButton
 {
     public int score;
     public TMP_Text scoreText;
+    
+    [SerializeField] private Color doublePointsTextColour = Color.yellow;
 
-    private void Start() => scoreText.text = "+" + score;
+    protected override void Update()
+    {
+        base.Update();
+
+        scoreText.text = GameManager.Instance.DoublePoints ? $"+ {score * 2}" : $"+ {score}";
+        scoreText.color = GameManager.Instance.DoublePoints ? doublePointsTextColour : Color.black;
+    }
 
     public override void UIResponse_Clicked() 
     {

@@ -40,6 +40,8 @@ public class BoostCooldownButton : CooldownButton {
         {
             durationTimer = duration;
             
+            GetComponent<Button>().interactable = false;
+            
             durationIndicator.GetComponent<Image>().color = durationColor;
             durationIndicator.gameObject.SetActive(true);
             

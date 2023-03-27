@@ -26,6 +26,7 @@ public class CooldownButton : MonoBehaviour
         }
         else
         {
+            GetComponent<Button>().interactable = true;
             durationIndicator.gameObject.SetActive(false);
         }
     }
@@ -35,6 +36,8 @@ public class CooldownButton : MonoBehaviour
         if (cooldownTimer <= 0) 
         {
             cooldownTimer = cooldown;
+
+            GetComponent<Button>().interactable = false;
 
             durationIndicator.anchorMin = new Vector2(0, 0);
             durationIndicator.anchorMax = new Vector2(1, 1);

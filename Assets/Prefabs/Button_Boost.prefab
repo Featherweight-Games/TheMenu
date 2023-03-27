@@ -226,7 +226,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationIndicator: {fileID: 7919299177223360084}
+  cooldownColor: {r: 0.7529412, g: 0.16078432, b: 0.16078432, a: 0.8627451}
   cooldown: 10
+  durationColor: {r: 0.31746176, g: 0.7735849, b: 0.31746176, a: 0.8627451}
   boostType: 0
   duration: 5
 --- !u!114 &7441809633309198453
