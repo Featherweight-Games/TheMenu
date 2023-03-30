@@ -14,8 +14,13 @@ public class BoostButton : MonoBehaviour {
     private float cooldownTimer;
     private float durationTimer;
     
+    private CoolDown _coolDown;
+    private PowerupCooldown _powerupCooldown;
+    
     private void OnEnable() {
         cooldownTimer = 0;
+        _coolDown = this.gameObject.GetComponent<CoolDown>();
+        _powerupCooldown = this.gameObject.GetComponent<PowerupCooldown>();
     }
 
     // Update is called once per frame
@@ -31,14 +36,17 @@ public class BoostButton : MonoBehaviour {
         }
     }
 
-    public void UIResponse_Clicked() {
+    public void UIResponse_Clicked()
+    {
         if (cooldownTimer <= 0) {
             cooldownTimer = cooldown;
             durationTimer = duration;
             if (boostType == BoostType.doublePoints) {
                 GameManager.Instance.EnableDoublePoints();
+                _powerupCooldown.triggerPowerupDuration(duration);
             } else if (boostType == BoostType.haste) {
                 GameManager.Instance.EnableHaste();
+                _powerupCooldown.triggerPowerupDuration(duration);
             }
         }
     }
@@ -49,6 +57,8 @@ public class BoostButton : MonoBehaviour {
         } else if (boostType == BoostType.haste) {
             GameManager.Instance.DisableHaste();
         }
+        
+        _coolDown.triggercooldown(cooldown);
     }
     
     

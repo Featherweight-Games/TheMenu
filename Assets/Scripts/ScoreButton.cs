@@ -11,6 +11,7 @@ public class ScoreButton : MonoBehaviour {
     public TMP_Text scoreText;
 
     private float cooldownTimer;
+    private CoolDown _coolDown;
     
     // Start is called before the first frame update
     void Start() {
@@ -19,6 +20,7 @@ public class ScoreButton : MonoBehaviour {
 
     private void OnEnable() {
         cooldownTimer = 0;
+        _coolDown = this.gameObject.GetComponent<CoolDown>();
     }
 
     void Update() {
@@ -34,6 +36,10 @@ public class ScoreButton : MonoBehaviour {
             GameManager.Instance.AddScore(toAdd);
             
             cooldownTimer = cooldown;
+            if (cooldown > 0f)
+            {
+                _coolDown.triggercooldown(cooldown);
+            }
         }
     }
 }
