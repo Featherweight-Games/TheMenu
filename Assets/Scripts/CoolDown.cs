@@ -11,7 +11,7 @@ public class CoolDown : MonoBehaviour
         coolDownImage.gameObject.SetActive(true);
         coolDownImage.fillAmount = 1f;
 
-        coolDownImage.DOFillAmount(0, time).OnComplete(() =>
+        coolDownImage.DOFillAmount(0, time+0.5f).OnComplete(() =>
         {
             coolDownImage.fillAmount = 0f;
             coolDownImage.gameObject.SetActive(false);

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class BoostButton : MonoBehaviour {
@@ -16,9 +18,11 @@ public class BoostButton : MonoBehaviour {
     
     private CoolDown _coolDown;
     private PowerupCooldown _powerupCooldown;
+    private Button thisButton;
     
     private void OnEnable() {
         cooldownTimer = 0;
+        thisButton = this.gameObject.GetComponent<Button>();
         _coolDown = this.gameObject.GetComponent<CoolDown>();
         _powerupCooldown = this.gameObject.GetComponent<PowerupCooldown>();
     }
@@ -44,21 +48,24 @@ public class BoostButton : MonoBehaviour {
             if (boostType == BoostType.doublePoints) {
                 GameManager.Instance.EnableDoublePoints();
                 _powerupCooldown.triggerPowerupDuration(duration);
+                thisButton.image.color = Color.yellow;
+                thisButton.image.DOColor(Color.white, duration);
             } else if (boostType == BoostType.haste) {
                 GameManager.Instance.EnableHaste();
                 _powerupCooldown.triggerPowerupDuration(duration);
+                thisButton.image.color = Color.green;
+                thisButton.image.DOColor(Color.white, duration);
             }
         }
     }
 
     void EndDuration() {
+        _coolDown.triggercooldown(cooldown);
         if (boostType == BoostType.doublePoints) {
             GameManager.Instance.DisableDoublePoints();
         } else if (boostType == BoostType.haste) {
             GameManager.Instance.DisableHaste();
         }
-        
-        _coolDown.triggercooldown(cooldown);
     }
     
     

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -20,10 +22,11 @@ public class GameManager : Singleton<GameManager> {
     public TMP_Text scoreText;
     public TMP_Text timerText;
     
-    
 
     private float timer;
     private int currentScore;
+    public GameObject scoreStar;
+    private bool rotationrunning = false;
 
     private const float GAME_DURATION = 30f;
 
@@ -75,6 +78,18 @@ public class GameManager : Singleton<GameManager> {
     public void AddScore(int score) {
         currentScore += score;
         scoreText.text = currentScore.ToString();
+
+        if (!rotationrunning)
+        {
+            rotationrunning = true;
+            var rotation = new Vector3(scoreStar.transform.rotation.x, scoreStar.transform.rotation.y+180, scoreStar.transform.rotation.z);
+            scoreStar.transform.DORotate(rotation, 0.5f).OnComplete(() =>
+            {
+                rotationrunning = false;
+                scoreStar.transform.rotation = new Quaternion(0, 0, 0, 0);
+                Debug.Log("Claire end rotation");
+            });
+        }
     }
 
     public void EnableDoublePoints() {
